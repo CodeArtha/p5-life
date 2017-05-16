@@ -14,15 +14,24 @@ function Cell(c, r, s){
 	this.x = c*scl;
 	this.y = r*scl;
 	this.state = s;
-	this.nextState;
+	this.nextState = 1;
 
 	this.show = function(){
+		//drawing whole cell in it's current state
 		if(this.state == 0){
-			fill(0,0,0);
+			fill(0);
 			rect(this.x, this.y, scl, scl);
 		} else if( this.state == 1) {
-			fill(255, 255, 255);
+			fill(255);
 			rect(this.x, this.y, scl, scl);
+		}
+		//drawing indicator square in the center of the cell representing it's next state
+		if(this.nextState == 0){
+			fill(0);
+			rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
+		} else if (this.nextState == 1) {
+			fill(255);
+			rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
 		}
 	}
 
