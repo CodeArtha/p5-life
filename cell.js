@@ -35,12 +35,35 @@ function Cell(c, r, s){
 		}
 	}
 
+
+	/**
+    Any live cell with fewer than two live neighbours dies (referred to as underpopulation or exposure[1]).
+    Any live cell with more than three live neighbours dies (referred to as overpopulation or overcrowding).
+    Any live cell with two or three live neighbours lives, unchanged, to the next generation.
+    Any dead cell with exactly three live neighbours will come to life.
+	*/
 	this.update = function(){
 		if(this.col == 0 || this.col == cols - 1 || this.row == 0 || this.row == rows - 1){
 			this.state = 0;
 			this.nextState = 0;
 		}else{
 			n = this.countNeighbors();
+
+			if(this.state == 1){
+				if(n < 2) {
+					this.nextState = 0;
+				}else if(n > 3){
+					this.nextState = 0;
+				}else if(n == 2 || n == 3){
+					this.nextState = this.state;
+				}
+			}else if (this.state == 0) {
+				if (n == 3) {
+					this.nextState = 1;
+				}else{
+					this.nextState = this.state;
+				}
+			}
 		}
 	}
 
