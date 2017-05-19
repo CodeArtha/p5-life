@@ -13,7 +13,7 @@ function setup() {
 
 function draw() {
 	background(50);
-	
+
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
 			grid[c][r].update();
