@@ -14,7 +14,7 @@ function Cell(c, r, s){
 	this.x = c*scl;
 	this.y = r*scl;
 	this.state = s;
-	this.nextState = 1;
+	this.nextState;
 
 	this.show = function(){
 		//drawing whole cell in it's current state
@@ -25,6 +25,13 @@ function Cell(c, r, s){
 			fill(255);
 			rect(this.x, this.y, scl, scl);
 		}
+
+		if(debug){
+			textSize(12);
+			fill(150, 10, 10);
+			text(this.countNeighbors, this.x + scl/2, this.y + scl/2);
+		}
+
 		//drawing indicator square in the center of the cell representing it's next state
 		if(this.nextState == 0){
 			fill(0);
@@ -70,14 +77,14 @@ function Cell(c, r, s){
 	this.countNeighbors = function(){
 		var count = 0;
 
-		if(grid[this.col - 1][this.row -1 ].state != 0) count++;
-		if(grid[this.col][this.row - 1].state != 0) count++;
-		if(grid[this.col + 1][this.row - 1].state != 0) count++;
-		if(grid[this.col - 1][this.row].state != 0) count++;
-		if(grid[this.col + 1][this.row].state != 0) count++;
-		if(grid[this.col - 1][this.row + 1].state != 0) count++;
-		if(grid[this.col][this.row + 1].state != 0) count++;
-		if(grid[this.col + 1][this.row + 1].state != 0) count++;
+		if(grid[this.col - 1][this.row -1 ].state == 1) count++;
+		if(grid[this.col][this.row - 1].state == 1) count++;
+		if(grid[this.col + 1][this.row - 1].state == 1) count++;
+		if(grid[this.col - 1][this.row].state == 1) count++;
+		if(grid[this.col + 1][this.row].state == 1) count++;
+		if(grid[this.col - 1][this.row + 1].state == 1) count++;
+		if(grid[this.col][this.row + 1].state == 1) count++;
+		if(grid[this.col + 1][this.row + 1].state == 1) count++;
 
 		return count;
 	}
