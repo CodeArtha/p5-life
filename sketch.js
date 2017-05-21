@@ -2,6 +2,7 @@ var cols = 20;
 var rows = 15;
 var scl = 20;
 var grid = [];
+var debug = false;
 
 function setup() {
 	createCanvas(cols * scl, rows * scl);
