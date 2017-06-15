@@ -10,11 +10,15 @@ function setup() {
 	createCanvas(cols * scl, rows * scl);
 	frameRate(1);
 
+	fpsSlider = createSlider(0, 120, 1);
+	fpsSlider.position(20, height + 30);
+
 	initGrid();
 	randomGrid();
 }
 
 function draw() {
+	frameRate(fpsSlider.value());
 	background(50,50,50);
 
 	for(var r = 0; r < rows; r++){
