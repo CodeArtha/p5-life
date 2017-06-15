@@ -1,7 +1,9 @@
 var cols = 20;
 var rows = 15;
 var scl = 20;
+var btnHeight = 20;
 var grid = [];
+var btns = [];
 var debug = false;
 
 function setup() {
@@ -13,12 +15,17 @@ function setup() {
 }
 
 function draw() {
-	background(50);
+	background(50,50,50);
 
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
 			grid[c][r].update();
 			grid[c][r].show();
+		}
+	}
+	for(var r = 0; r < rows; r++){
+		for(var c = 0; c < cols; c++){
+			grid[c][r].nextGen();
 		}
 	}
 }

@@ -88,4 +88,8 @@ function Cell(c, r, s){
 
 		return count;
 	}
+
+	this.nextGen = function(){
+		this.state = this.nextState;
+	}
 }
