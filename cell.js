@@ -92,4 +92,12 @@ function Cell(c, r, s){
 	this.nextGen = function(){
 		this.state = this.nextState;
 	}
+
+	this.isClicked = function(){
+		return true;
+	}
+
+	this.onClick = function(){
+		return null;
+	}
 }

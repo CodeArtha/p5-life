@@ -1,25 +1,23 @@
 var cols = 20;
 var rows = 15;
 var scl = 20;
-var btnHeight = 20;
+var btnHeight = 50;
+var btnWidth;
+var btnRad = 3;
 var grid = [];
 var btns = [];
 var debug = false;
 
 function setup() {
-	createCanvas(cols * scl, rows * scl);
+	createCanvas(cols * scl, rows * scl + btnHeight);
 	frameRate(1);
-
-	fpsSlider = createSlider(0, 120, 1);
-	fpsSlider.position(20, height + 30);
 
 	initGrid();
 	randomGrid();
 }
 
 function draw() {
-	frameRate(fpsSlider.value());
-	background(50,50,50);
+	background(105, 105, 105);
 
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
@@ -53,6 +51,23 @@ function randomGrid(density = 0.5){
 			}else{
 				grid[c][r] = new Cell(c, r, 0);
 			}
+		}
+	}
+}
+
+function mouseClicked(){
+	//sending signal to all buttons
+	for (var i = 0; i < btns.length; i++) {
+		if(btns[i].isClicked(mouseX, mouseY)){
+			btns[i].onClick();
+			break;
+		}
+	}
+	//sending signal to all cells
+	for (var i = 0; i < grid.length; i++) {
+		if(grid[i].isClicked(mouseX, mouseY)){
+			grid[i].onClick();
+			break;
 		}
 	}
 }
