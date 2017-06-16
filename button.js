@@ -17,23 +17,27 @@ function Button(lbl, fct, type, status, posX, posY, w, h){
 
 
     this.show = function(){
-        if(state){
+        //drawing the button
+        if(this.state){
             fill(0, 204, 0);
         }else{
             fill(204, 0, 0);
         }
         rect(this.xmin, this.ymin, this.w, this.h, btnRad);
-        //textAlign(CENTER);
-        text(this.txt, this.x + (w / 2), this.y + (h / 2), w, h);
+
+        //drawing text over it
+        fill(18, 18, 18);
+        textSize(20);
+        text(this.txt, this.x, this.y);
     }
 
     this.onClick = function() {
-        if(type == "toggle"){
+        if(this.type == "toggle"){
             window[this.action]();
             this.state = !this.state;
             this.show();
         }
-        if(type == "flash"){
+        if(this.type == "flash"){
             window[this.action]();
             this.state = !this.state;
             this.show();

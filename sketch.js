@@ -3,7 +3,7 @@ var rows = 15;
 var scl = 20;
 var btnHeight = 50;
 var btnWidth;
-var btnRad = 3;
+var btnRad = 5;
 var grid = [];
 var btns = [];
 var debug = false;
@@ -12,12 +12,14 @@ function setup() {
 	createCanvas(cols * scl, rows * scl + btnHeight);
 	frameRate(1);
 
+	btns.push(new Button("Reset", "resetGrid", "flash", 1, 0, height - btnHeight, 150, btnHeight));
+
 	initGrid();
 	randomGrid();
 }
 
 function draw() {
-	background(105, 105, 105);
+	//background(105, 105, 105);
 
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
@@ -29,6 +31,9 @@ function draw() {
 		for(var c = 0; c < cols; c++){
 			grid[c][r].nextGen();
 		}
+	}
+	for (var i = 0; i < btns.length; i++) {
+		btns[i].show();
 	}
 }
 
@@ -64,10 +69,12 @@ function mouseClicked(){
 		}
 	}
 	//sending signal to all cells
-	for (var i = 0; i < grid.length; i++) {
-		if(grid[i].isClicked(mouseX, mouseY)){
-			grid[i].onClick();
-			break;
+	for(var r = 0; r < rows; r++){
+		for(var c = 0; c < cols; c++){
+			if(grid[c][r].isClicked(mouseX, mouseY)){
+				grid[c][r].onClick();
+				break;
+			}
 		}
 	}
 }
