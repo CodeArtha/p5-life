@@ -22,6 +22,7 @@ function Cell(c, r, s){
 			fill(0);
 			rect(this.x, this.y, scl, scl);
 		} else if( this.state == 1) {
+			score++;
 			fill(255);
 			rect(this.x, this.y, scl, scl);
 		}
@@ -94,17 +95,10 @@ function Cell(c, r, s){
 	}
 
 	this.isClicked = function(ix, iy){
-		//excluding borders cells as they should never be able to be toggled to active/alive
-		if(
-			(ix >= 0 && ix <= scl) OR
-			(ix >= width - scl && ix <= width) OR
-			(iy >= 0 && <= scl) OR
-			(iy >= height - scl && iy <= height)
-		){return false;}
-		
 		//is this cell the one we clicked on
 		if(ix >= this.x && ix <= this.x + scl){
 			if(iy >= this.y && iy <= this.y + scl) {
+				console.log("cell " + this.col + ", " +this.row+" clicked");
 				return true;
 			}else{return false;}
 		}else{return false;}

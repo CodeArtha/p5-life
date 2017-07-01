@@ -7,6 +7,7 @@ var btnRad = 5;
 var grid = [];
 var btns = [];
 var debug = false;
+var score;
 
 function setup() {
 	createCanvas(cols * scl, rows * scl + btnHeight);
@@ -23,10 +24,14 @@ function draw() {
 
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
+			score = 0;
 			grid[c][r].update();
 			grid[c][r].show();
 		}
 	}
+	fill(18);
+	textSize(12);
+	text("Score: " + score, width - btnWidth, height - (btnHeight/2));
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
 			grid[c][r].nextGen();
