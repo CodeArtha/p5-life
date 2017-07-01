@@ -93,8 +93,12 @@ function Cell(c, r, s){
 		this.state = this.nextState;
 	}
 
-	this.isClicked = function(){
-		return true;
+	this.isClicked = function(ix, iy){
+		if (ix >= this.x && ix <= this.x + scl){
+			if ( iy >= this.y && iy <= this.y + scl) {
+				return true;
+			}else{return false;}
+		}else{return false;}
 	}
 
 	this.onClick = function(){
