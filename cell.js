@@ -94,14 +94,27 @@ function Cell(c, r, s){
 	}
 
 	this.isClicked = function(ix, iy){
-		if (ix >= this.x && ix <= this.x + scl){
-			if ( iy >= this.y && iy <= this.y + scl) {
+		//excluding borders cells as they should never be able to be toggled to active/alive
+		if(
+			(ix >= 0 && ix <= scl) OR
+			(ix >= width - scl && ix <= width) OR
+			(iy >= 0 && <= scl) OR
+			(iy >= height - scl && iy <= height)
+		){return false;}
+		
+		//is this cell the one we clicked on
+		if(ix >= this.x && ix <= this.x + scl){
+			if(iy >= this.y && iy <= this.y + scl) {
 				return true;
 			}else{return false;}
 		}else{return false;}
 	}
 
 	this.onClick = function(){
-		return null;
+		if(this.state == 0){
+			this.state = 1;
+		}
+		this.update();
+		this.show();
 	}
 }
