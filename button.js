@@ -6,7 +6,7 @@
 function Button(lbl, fct, type, status, posX, posY, w, h){
     this.txt = lbl;
     this.action = fct;
-    this.tpe = type;
+    this.types = type;
     this.state = status;
     this.xmin = posX;
     this.xmax = posX + w;
@@ -28,16 +28,18 @@ function Button(lbl, fct, type, status, posX, posY, w, h){
         //drawing text over it
         fill(18, 18, 18);
         textSize(20);
-        text(this.txt, this.x, this.y);
+        text("lbl", this.xmin, this.ymin);
+        //text("lorem ipsum", 20,320);
+
     }
 
     this.onClick = function() {
-        if(this.type == "toggle"){
+        if(this.types == "toggle"){
             window[this.action]();
             this.state = !this.state;
             this.show();
         }
-        if(this.type == "flash"){
+        if(this.types == "flash"){
             window[this.action]();
             this.state = !this.state;
             this.show();
