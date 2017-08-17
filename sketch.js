@@ -1,5 +1,5 @@
-var cols = 20;
-var rows = 15;
+var cols = 50;
+var rows = 30;
 var scl = 20;
 var btnHeight = 50;
 var btnWidth;
@@ -11,7 +11,7 @@ var score;
 
 function setup() {
 	createCanvas(cols * scl, rows * scl + btnHeight);
-	frameRate(1);
+	frameRate(0.5);
 
 	btns.push(new Button("Reset", "resetGrid", "flash", 1, 0, height - btnHeight, 150, btnHeight));
 
