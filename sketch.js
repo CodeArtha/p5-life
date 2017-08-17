@@ -13,7 +13,8 @@ function setup() {
 	createCanvas(cols * scl, rows * scl + btnHeight);
 	frameRate(0.5);
 
-	btns.push(new Button("Reset", "resetGrid", "flash", 1, 0, height - btnHeight, 150, btnHeight));
+	//Button(lbl, fct, type, status, posX, posY, w, h)
+	btns.push(new Button("Reset", "resetGrid", "flash", 1, 0, height - btnHeight, 150, btnHeight - 2));
 
 	initGrid();
 	randomGrid();
@@ -29,9 +30,9 @@ function draw() {
 			grid[c][r].show();
 		}
 	}
-	fill(18);
+	fill(123);
 	textSize(12);
-	text("Score: " + score, width - btnWidth, height - (btnHeight/2));
+	text("Score: ", 20, 20);
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
 			grid[c][r].nextGen();
