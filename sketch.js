@@ -1,8 +1,8 @@
-var cols = 50;
-var rows = 30;
+var cols = 20;
+var rows = 15;
 var scl = 20;
 var btnHeight = 50;
-var btnWidth;
+var btnWidth = 150;
 var btnRad = 5;
 var grid = [];
 var btns = [];
@@ -10,19 +10,21 @@ var debug = false;
 var score;
 
 function setup() {
-	createCanvas(cols * scl, rows * scl + btnHeight);
+	//creating the frame in which everything will be drown.
+	createCanvas((cols * scl) + btnWidth + scl, rows * scl);
 	frameRate(0.5);
 
 	//Button(lbl, fct, type, status, posX, posY, w, h)
-	btns.push(new Button("Reset", "resetGrid", "flash", 1, 0, height - btnHeight, 150, btnHeight - 2));
+	btns.push(new Button("Reset", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
 
+	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
 	randomGrid();
 }
 
 function draw() {
-	//background(105, 105, 105);
-
+	// updating the cells then drawing them on screen.
+	// updating changes the current state to the state stored in NextGen
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
 			score = 0;
@@ -30,17 +32,22 @@ function draw() {
 			grid[c][r].show();
 		}
 	}
-	fill(123);
-	textSize(12);
-	text("Score: ", 20, 20);
+
+	// calculating state of cells in next generation
+	// warning: can't be added to the loop responsible for updating and drawing the cells
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
 			grid[c][r].nextGen();
 		}
 	}
+
+	//drawing buttons and score
 	for (var i = 0; i < btns.length; i++) {
 		btns[i].show();
 	}
+	fill(123);
+	textSize(12);
+	text("Score: " + score, scl, 0.8*scl);
 }
 
 function initGrid(){

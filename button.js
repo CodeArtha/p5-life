@@ -26,10 +26,10 @@ function Button(lbl, fct, type, status, posX, posY, w, h){
         rect(this.xmin, this.ymin, this.w, this.h, btnRad);
 
         //drawing text over it
-        fill(18, 18, 18);
+        fill(0,0,150);
         textSize(20);
         text("lbl", this.xmin, this.ymin);
-        //text("lorem ipsum", 20,320);
+        text("lorem ipsum", 20,320);
 
     }
 
