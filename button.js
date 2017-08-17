@@ -3,11 +3,11 @@
  * type = eighter toggle or flash
  * status = 1 or 0 if it starts as active or inactive
  */
-function Button(lbl, fct, type, status, posX, posY, w, h){
-    this.txt = lbl;
-    this.action = fct;
-    this.types = type;
-    this.state = status;
+function Button(lbl, fct, type, state, posX, posY, w, h){
+    this.lbl = lbl;
+    this.fct = fct;
+    this.typ = type;
+    this.state = state;
     this.xmin = posX;
     this.xmax = posX + w;
     this.w = w;
@@ -17,7 +17,7 @@ function Button(lbl, fct, type, status, posX, posY, w, h){
 
 
     this.show = function(){
-        //drawing the button
+		//drawing the button
         if(this.state){
             fill(0, 204, 0);
         }else{
@@ -25,12 +25,11 @@ function Button(lbl, fct, type, status, posX, posY, w, h){
         }
         rect(this.xmin, this.ymin, this.w, this.h, btnRad);
 
-        //drawing text over it
-        fill(0,0,150);
-        textSize(20);
-        text("lbl", this.xmin, this.ymin);
-        text("lorem ipsum", 20,320);
-
+		//drawing text over it
+		fill(0, 0, 150);
+		textSize(25);
+		textAlign(CENTER, CENTER);
+		text(lbl, this.xmin + 0.5*btnWidth, this.ymin + 0.5*btnHeight);
     }
 
     this.onClick = function() {
