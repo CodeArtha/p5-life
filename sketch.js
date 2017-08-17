@@ -25,9 +25,9 @@ function setup() {
 function draw() {
 	// updating the cells then drawing them on screen.
 	// updating changes the current state to the state stored in NextGen
+	score = 0;
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
-			score = 0;
 			grid[c][r].update();
 			grid[c][r].show();
 		}
@@ -46,7 +46,7 @@ function draw() {
 		btns[i].show();
 	}
 	fill(123);
-	textSize(12);
+	textSize(15);
 	text("Score: " + score, scl, 0.8*scl);
 }
 
