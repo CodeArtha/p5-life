@@ -47,7 +47,7 @@ function draw() {
 	}
 	fill(123);
 	textSize(15);
-	text("Score: " + score, scl, 0.8*scl);
+	text("Score: " + score, scl * cols * 0.5, 0.6*scl);
 }
 
 function initGrid(){
