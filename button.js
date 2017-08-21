@@ -1,7 +1,7 @@
 /* lbl = text displayed in the Button
  * fct = name of the function to be executed when clicked
  * type = eighter toggle or flash
- * status = 1 or 0 if it starts as active or inactive
+ * state = 1 or 0 if it starts as active or inactive
  */
 function Button(lbl, fct, type, state, posX, posY, w, h){
     this.lbl = lbl;
@@ -14,36 +14,44 @@ function Button(lbl, fct, type, state, posX, posY, w, h){
     this.ymin = posY;
     this.ymax = posY + h;
     this.h = h;
+	this.wait = -1; // set to a higher value to wait a few frames before going back in color for the flash mode
 
 
     this.show = function(){
+		//decreasing wait time then going back to previous state for flashing buttons
+		if(this.wait > 0){
+			this.wait = this.wait -1;
+		}
+		if(this.wait == 0){
+			this.wait = -1;
+			this.state = !this.state;
+		}
+
 		//drawing the button
-        if(this.state){
+        if(this.state == 1){
             fill(0, 204, 0);
-        }else{
+        }else if(this.state == 0){
             fill(204, 0, 0);
         }
         rect(this.xmin, this.ymin, this.w, this.h, btnRad);
 
 		//drawing text over it
 		fill(0, 0, 150);
-		textSize(25);
+		textSize(20);
 		textAlign(CENTER, CENTER);
 		text(lbl, this.xmin + 0.5*btnWidth, this.ymin + 0.5*btnHeight);
     }
 
     this.onClick = function() {
-        if(this.types == "toggle"){
-            window[this.action]();
+        if(this.typ == "toggle"){
+            //window[this.fct]();
             this.state = !this.state;
             this.show();
         }
-        if(this.types == "flash"){
-            window[this.action]();
+        if(this.typ == "flash"){
+            //window[this.fct]();
             this.state = !this.state;
-            this.show();
-            sleep(0.5);
-            this.state = !this.state;
+			this.wait = 5;
             this.show();
         }
     }

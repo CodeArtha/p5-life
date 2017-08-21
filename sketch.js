@@ -15,7 +15,7 @@ function setup() {
 	frameRate(0.5);
 
 	//Button(lbl, fct, type, status, posX, posY, w, h)
-	btns.push(new Button("Reset", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
+	btns.push(new Button("Random Reset", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
 
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
@@ -77,6 +77,7 @@ function mouseClicked(){
 	//sending signal to all buttons
 	for (var i = 0; i < btns.length; i++) {
 		if(btns[i].isClicked(mouseX, mouseY)){
+			console.log("button "+ i+" clicked");
 			btns[i].onClick();
 			break;
 		}
