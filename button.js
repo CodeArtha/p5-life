@@ -51,7 +51,7 @@ function Button(lbl, fct, type, state, posX, posY, w, h){
         if(this.typ == "flash"){
             //window[this.fct]();
             this.state = !this.state;
-			this.wait = 5;
+			this.wait = 2;
             this.show();
         }
     }

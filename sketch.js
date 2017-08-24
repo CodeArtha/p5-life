@@ -15,7 +15,9 @@ function setup() {
 	frameRate(0.5);
 
 	//Button(lbl, fct, type, status, posX, posY, w, h)
-	btns.push(new Button("Random Reset", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
+	btns.push(new Button("New Random", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
+	btns.push(new Button("Auto Play", "forward(0)", "toggle", 1, cols * scl + scl/2, btnHeight, btnWidth, btnHeight));
+	btns.push(new Button("Next Move", "forward(1)", "flash", 1, cols * scl + scl/2, 2*btnHeight, btnWidth, btnHeight));
 
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
