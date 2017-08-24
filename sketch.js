@@ -8,11 +8,14 @@ var grid = [];
 var btns = [];
 var debug = false;
 var score;
+var drawFrameRate = 30;
+var updateFrameRate = drawFrameRate / 1;
+var frameCounter = updateFrameRate;
 
 function setup() {
 	//creating the frame in which everything will be drown.
 	createCanvas((cols * scl) + btnWidth + scl, rows * scl);
-	frameRate(0.5);
+	frameRate(drawFrameRate); // number of times per second the function draw() is called
 
 	//Button(lbl, fct, type, status, posX, posY, w, h)
 	btns.push(new Button("New Random", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
@@ -25,21 +28,26 @@ function setup() {
 }
 
 function draw() {
-	// updating the cells then drawing them on screen.
-	// updating changes the current state to the state stored in NextGen
-	score = 0;
-	for(var r = 0; r < rows; r++){
-		for(var c = 0; c < cols; c++){
-			grid[c][r].update();
-			grid[c][r].show();
+	frameCounter++;
+	if(frameCounter >= updateFrameRate){
+		frameCounter = 0;
+		score = 0;
+		// updating the cells then drawing them on screen.
+		// updating changes the current state to the state stored in NextGen
+		for(var r = 0; r < rows; r++){
+			for(var c = 0; c < cols; c++){
+				grid[c][r].update();
+				grid[c][r].show();
+			}
 		}
-	}
 
-	// calculating state of cells in next generation
-	// warning: can't be added to the loop responsible for updating and drawing the cells
-	for(var r = 0; r < rows; r++){
-		for(var c = 0; c < cols; c++){
-			grid[c][r].nextGen();
+		// calculating state of cells in next generation
+		// warning: can't be added to the loop responsible for updating and drawing the cells
+		// or else neighbour count will be off.
+		for(var r = 0; r < rows; r++){
+			for(var c = 0; c < cols; c++){
+				grid[c][r].nextGen();
+			}
 		}
 	}
 

@@ -49,7 +49,7 @@ function Button(lbl, fct, type, state, posX, posY, w, h){
             this.show();
         }
         if(this.typ == "flash"){
-            //window[this.fct]();
+            window[this.fct]();
             this.state = !this.state;
 			this.wait = 2;
             this.show();
