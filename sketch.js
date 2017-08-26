@@ -1,5 +1,5 @@
-var cols = 20;
-var rows = 15;
+var cols = 10;
+var rows = 10;
 var scl = 20;
 var btnHeight = 50;
 var btnWidth = 150;
@@ -101,4 +101,26 @@ function mouseClicked(){
 			}
 		}
 	}
+}
+
+function encodeGrid(){
+	var encoded = '';
+
+	// as we will be reading the grid 3 cells by 3 we first flatten the 2D array to avoid colum modulo hassel
+	var arr = [];
+	for (row of grid) for (e of row) arr.push(e);
+
+	// we start at cols and stop cols before the end to skip most of
+	// the black border who are allways dead cells
+	var max = (cols*rows) - cols;
+	for(var pos = cols; pos <= max ; pos = pos + 3){
+		var a = arr[pos].state.toString();
+		var b = arr[pos+1].state.toString();
+		var c = arr[pos+2].state.toString();
+
+		encoded = encoded + a + b + c;
+	}
+
+	arr = null;
+	return encoded;
 }
