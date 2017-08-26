@@ -1,5 +1,5 @@
-var cols = 10;
-var rows = 10;
+var cols = 30;
+var rows = 20;
 var scl = 20;
 var btnHeight = 50;
 var btnWidth = 150;
@@ -20,7 +20,7 @@ function setup() {
 	//Button(lbl, fct, type, status, posX, posY, w, h)
 	btns.push(new Button("New Random", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
 	btns.push(new Button("Auto Play", "forward(0)", "toggle", 1, cols * scl + scl/2, btnHeight, btnWidth, btnHeight));
-	btns.push(new Button("Next Move", "forward(1)", "flash", 1, cols * scl + scl/2, 2*btnHeight, btnWidth, btnHeight));
+	btns.push(new Button("Next Move", "forward(1)", "toggle", 1, cols * scl + scl/2, 2*btnHeight, btnWidth, btnHeight));
 
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
@@ -66,7 +66,7 @@ function initGrid(){
 	}
 }
 
-function randomGrid(density = 0.5){
+function randomGrid(density = 0.3){
 	for(var r = 0; r < rows; r++){
 		for(var c = 0; c < cols; c++){
 			if(random() <= density){
@@ -87,14 +87,15 @@ function mouseClicked(){
 	//sending signal to all buttons
 	for (var i = 0; i < btns.length; i++) {
 		if(btns[i].isClicked(mouseX, mouseY)){
-			console.log("button "+ i+" clicked");
 			btns[i].onClick();
 			break;
 		}
 	}
-	//sending signal to all cells
-	for(var r = 0; r < rows; r++){
-		for(var c = 0; c < cols; c++){
+	//sending signal to all cells except borders
+	//sending to borders don't break anything as
+	//a border born will be killed before the next tick
+	for(var r = 1; r < rows - 1; r++){
+		for(var c = 1; c < cols - 1; c++){
 			if(grid[c][r].isClicked(mouseX, mouseY)){
 				grid[c][r].onClick();
 				break;
@@ -114,4 +115,13 @@ function grid2string(){
 	}
 
 	return str;
+}
+
+// Button actions functions
+function resetGrid(){
+	console.log("new random grid");
+	grid = null;
+	grid = [];
+	initGrid();
+	randomGrid();
 }

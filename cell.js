@@ -98,13 +98,14 @@ function Cell(c, r, s){
 		//is this cell the one we clicked on
 		if(ix >= this.x && ix <= this.x + scl){
 			if(iy >= this.y && iy <= this.y + scl) {
-				console.log("cell " + this.col + ", " +this.row+" clicked");
 				return true;
 			}else{return false;}
 		}else{return false;}
 	}
 
 	this.onClick = function(){
+		console.log("cell " + this.col + ", " +this.row+" clicked");
+		
 		if(this.state == 0){
 			this.state = 1;
 		}
