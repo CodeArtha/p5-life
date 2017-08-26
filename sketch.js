@@ -6,7 +6,8 @@ var btnWidth = 150;
 var btnRad = 5;
 var grid = [];
 var btns = [];
-var debug = false;
+const SHOW_NEXTGEN_HELPER = false;
+const SHOW_NEIGHBORS_COUNT = true;
 var score;
 var drawFrameRate = 30;
 var updateFrameRate = drawFrameRate / 1;
@@ -41,6 +42,12 @@ function draw() {
 			}
 		}
 
+		//draws the score on top of the board
+		fill(150);
+		textAlign(CENTER,CENTER);
+		textSize(15);
+		text("Score: " + score, scl * cols * 0.5, 0.5*scl);
+
 		// calculating state of cells in next generation
 		// warning: can't be added to the loop responsible for updating and drawing the cells
 		// or else neighbour count will be off.
@@ -51,13 +58,11 @@ function draw() {
 		}
 	}
 
-	//drawing buttons and score
+	//drawing buttons
 	for (var i = 0; i < btns.length; i++) {
 		btns[i].show();
 	}
-	fill(123);
-	textSize(15);
-	text("Score: " + score, scl * cols * 0.5, 0.6*scl);
+
 }
 
 function initGrid(){
@@ -87,6 +92,7 @@ function mouseClicked(){
 	//sending signal to all buttons
 	for (var i = 0; i < btns.length; i++) {
 		if(btns[i].isClicked(mouseX, mouseY)){
+			console.log("Button "+ i + " clicked.");
 			btns[i].onClick();
 			break;
 		}
@@ -97,6 +103,7 @@ function mouseClicked(){
 	for(var r = 1; r < rows - 1; r++){
 		for(var c = 1; c < cols - 1; c++){
 			if(grid[c][r].isClicked(mouseX, mouseY)){
+				console.log("cell "+c+", "+r+" clicked");
 				grid[c][r].onClick();
 				break;
 			}

@@ -15,11 +15,12 @@ function Cell(c, r, s){
 	this.y = r*scl;
 	this.state = s;
 	this.nextState;
+	this.n; //neighbours count
 
 	this.show = function(){
 		//drawing whole cell in it's current state
 		if(this.state == 0){
-			fill(0);
+			fill(20);
 			rect(this.x, this.y, scl, scl);
 		} else if( this.state == 1) {
 			score++;
@@ -27,19 +28,34 @@ function Cell(c, r, s){
 			rect(this.x, this.y, scl, scl);
 		}
 
-		if(debug){
-			textSize(12);
-			fill(150, 10, 10);
-			text(this.countNeighbors, this.x + scl/2, this.y + scl/2);
+		//drawing indicator square in the center of the cell representing it's next state
+		if(SHOW_NEXTGEN_HELPER){
+			if(this.nextState == 0 && this.state == 1){
+				fill(20);
+				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
+			} else if (this.nextState == 1) {
+				fill(255);
+				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
+			}
 		}
 
-		//drawing indicator square in the center of the cell representing it's next state
-		if(this.nextState == 0){
-			fill(0);
-			rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
-		} else if (this.nextState == 1) {
-			fill(255);
-			rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
+		//writing the number of neighbours in the center of the cells
+		if(SHOW_NEIGHBORS_COUNT){
+			if(this.state == 1 || (this.state == 0 && this.nextState == 1)){
+				var r,g,b;
+				if(this.nextState == this.state){
+					r = 0; g = 0; b = 0;
+				} else if (this.nextState == 0){
+					r = 200; g = 20; b = 20;
+				} else if(this.nextState == 1){
+					r = 20; g = 150; b = 20;
+				}
+
+				fill(r,g,b);
+				textAlign(CENTER,CENTER);
+				textSize(12);
+				text(this.n, scl * (this.col + 0.5), scl * ( this.row + 0.5));
+			}
 		}
 	}
 
@@ -55,18 +71,18 @@ function Cell(c, r, s){
 			this.state = 0;
 			this.nextState = 0;
 		}else{
-			n = this.countNeighbors();
+			this.n = this.countNeighbors();
 
 			if(this.state == 1){
-				if(n < 2) {
+				if(this.n < 2) {
 					this.nextState = 0;
-				}else if(n > 3){
+				}else if(this.n > 3){
 					this.nextState = 0;
-				}else if(n == 2 || n == 3){
+				}else if(this.n == 2 || this.n == 3){
 					this.nextState = this.state;
 				}
 			}else if (this.state == 0) {
-				if (n == 3) {
+				if (this.n == 3) {
 					this.nextState = 1;
 				}else{
 					this.nextState = this.state;
@@ -104,8 +120,6 @@ function Cell(c, r, s){
 	}
 
 	this.onClick = function(){
-		console.log("cell " + this.col + ", " +this.row+" clicked");
-		
 		if(this.state == 0){
 			this.state = 1;
 		}
