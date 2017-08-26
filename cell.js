@@ -20,7 +20,11 @@ function Cell(c, r, s){
 	this.show = function(){
 		//drawing whole cell in it's current state
 		if(this.state == 0){
-			fill(20);
+			if(this.col == 0 || this.col == cols -1  || this.row == 0 || this.row == rows-1){
+				fill(0);
+			}else{
+				fill(20);
+			}
 			rect(this.x, this.y, scl, scl);
 		} else if( this.state == 1) {
 			score++;
