@@ -129,7 +129,15 @@ function Cell(c, r, s){
 		}else{
 			this.state = 0;
 		}
-		this.update();
-		this.show();
+		// this.update();
+		// this.show();
+		// updating the cells then drawing them on screen.
+		// updating changes the current state to the state stored in NextGen
+		for(var r = 0; r < rows; r++){
+			for(var c = 0; c < cols; c++){
+				grid[c][r].update();
+				grid[c][r].show();
+			}
+		}
 	}
 }

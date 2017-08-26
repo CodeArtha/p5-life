@@ -12,6 +12,7 @@ var score;
 var drawFrameRate = 30;
 var updateFrameRate = drawFrameRate / 1;
 var frameCounter = updateFrameRate;
+var framesToPlay = -1;
 
 function setup() {
 	//creating the frame in which everything will be drown.
@@ -20,8 +21,8 @@ function setup() {
 
 	//Button(lbl, fct, type, status, posX, posY, w, h)
 	btns.push(new Button("New Random", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
-	btns.push(new Button("Auto Play", "forward(0)", "toggle", 1, cols * scl + scl/2, btnHeight, btnWidth, btnHeight));
-	btns.push(new Button("Next Move", "forward(1)", "toggle", 1, cols * scl + scl/2, 2*btnHeight, btnWidth, btnHeight));
+	btns.push(new Button("Auto Play", "toggleAutoplay", "toggle", 1, cols * scl + scl/2, btnHeight, btnWidth, btnHeight));
+	btns.push(new Button("Next Move", "forwardNextGen", "flash", 1, cols * scl + scl/2, 2*btnHeight, btnWidth, btnHeight));
 
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
@@ -30,11 +31,15 @@ function setup() {
 
 function draw() {
 	frameCounter++;
-	if(frameCounter >= updateFrameRate){
+	if(frameCounter >= updateFrameRate && framesToPlay != 0){
+		if (framesToPlay > 0) {
+			framesToPlay--;
+		}
+
 		frameCounter = 0;
 		score = 0;
 		// updating the cells then drawing them on screen.
-		// updating changes the current state to the state stored in NextGen
+		// updating evaluates what nextState will be, but doesn't apply it
 		for(var r = 0; r < rows; r++){
 			for(var c = 0; c < cols; c++){
 				grid[c][r].update();
@@ -46,9 +51,9 @@ function draw() {
 		fill(150);
 		textAlign(CENTER,CENTER);
 		textSize(15);
-		text("Score: " + score, scl * cols * 0.5, 0.5*scl);
+		text("Score: " + score, scl * cols * 0.5, 0.5 * scl);
 
-		// calculating state of cells in next generation
+		// applies state of cells in next generation
 		// warning: can't be added to the loop responsible for updating and drawing the cells
 		// or else neighbour count will be off.
 		for(var r = 0; r < rows; r++){
@@ -62,7 +67,6 @@ function draw() {
 	for (var i = 0; i < btns.length; i++) {
 		btns[i].show();
 	}
-
 }
 
 function initGrid(){
@@ -131,4 +135,16 @@ function resetGrid(){
 	grid = [];
 	initGrid();
 	randomGrid();
+}
+
+function toggleAutoplay(){
+	if (framesToPlay < 0) {
+		framesToPlay = 0; //pause game auto next gen
+	} else if (framesToPlay >= 0) {
+		framesToPlay = -1; //set the game to auto forward generations
+	}
+}
+
+function forwardNextGen(){
+	framesToPlay = 1;
 }
