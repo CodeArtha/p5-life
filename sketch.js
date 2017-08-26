@@ -103,24 +103,15 @@ function mouseClicked(){
 	}
 }
 
-function encodeGrid(){
-	var encoded = '';
+function grid2string(){
+	var str = '';
 
-	// as we will be reading the grid 3 cells by 3 we first flatten the 2D array to avoid colum modulo hassel
-	var arr = [];
-	for (row of grid) for (e of row) arr.push(e);
-
-	// we start at cols and stop cols before the end to skip most of
-	// the black border who are allways dead cells
-	var max = (cols*rows) - cols;
-	for(var pos = cols; pos <= max ; pos = pos + 3){
-		var a = arr[pos].state.toString();
-		var b = arr[pos+1].state.toString();
-		var c = arr[pos+2].state.toString();
-
-		encoded = encoded + a + b + c;
+	// To save space we don't convert the border cells that are always dead.
+	for(var r = 1; r < rows - 1; r++){
+		for(var c = 1; c < cols - 1; c++){
+			str = str + grid[c][r].state.toString();
+		}
 	}
 
-	arr = null;
-	return encoded;
+	return str;
 }
