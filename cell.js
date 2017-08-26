@@ -122,6 +122,8 @@ function Cell(c, r, s){
 	this.onClick = function(){
 		if(this.state == 0){
 			this.state = 1;
+		}else{
+			this.state = 0;
 		}
 		this.update();
 		this.show();
