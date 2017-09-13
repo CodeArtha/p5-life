@@ -33,7 +33,7 @@ function Cell(c, r, s){
 		}
 
 		//drawing indicator square in the center of the cell representing it's next state
-		if(SHOW_NEXTGEN_HELPER){
+		if(show_nextgen_helper){
 			if(this.nextState == 0 && this.state == 1){
 				fill(20);
 				rect(this.x + (scl/2) - (scl/10), this.y + (scl/2) - (scl/10), scl/5, scl/5);
@@ -44,7 +44,7 @@ function Cell(c, r, s){
 		}
 
 		//writing the number of neighbours in the center of the cells
-		if(SHOW_NEIGHBORS_COUNT){
+		if(show_neighbors_count){
 			if(this.state == 1 || (this.state == 0 && this.nextState == 1)){
 				var r,g,b;
 				if(this.nextState == this.state){

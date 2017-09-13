@@ -6,8 +6,8 @@ var btnWidth = 150;
 var btnRad = 5;
 var grid = [];
 var btns = [];
-const SHOW_NEXTGEN_HELPER = true;
-const SHOW_NEIGHBORS_COUNT = false;
+var show_nextgen_helper = true;
+var show_neighbors_count = false;
 var score;
 var drawFrameRate = 30;
 var updateFrameRate = drawFrameRate / 1;
@@ -23,6 +23,8 @@ function setup() {
 	btns.push(new Button("New Random", "resetGrid", "flash", 1, cols * scl + scl/2, 0, btnWidth, btnHeight));
 	btns.push(new Button("Auto Play", "toggleAutoplay", "toggle", 1, cols * scl + scl/2, btnHeight, btnWidth, btnHeight));
 	btns.push(new Button("Next Move", "forwardNextGen", "flash", 1, cols * scl + scl/2, 2*btnHeight, btnWidth, btnHeight));
+	btns.push(new Button("Show Squares", "toggleHelperSquare", "toggle", show_nextgen_helper, cols * scl + scl/2, 3*btnHeight, btnWidth, btnHeight));
+	btns.push(new Button("Show Count", "toggleNCount", "toggle", show_neighbors_count, cols * scl + scl/2, 4*btnHeight, btnWidth, btnHeight));
 
 	//initialisation of the game grid in memory and filling it with random cells.
 	initGrid();
@@ -147,4 +149,12 @@ function toggleAutoplay(){
 
 function forwardNextGen(){
 	framesToPlay = 1;
+}
+
+function toggleHelperSquare(){
+	show_nextgen_helper = !show_nextgen_helper;
+}
+
+function toggleNCount(){
+	show_neighbors_count = !show_neighbors_count;
 }
